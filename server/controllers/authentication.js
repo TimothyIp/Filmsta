@@ -1,6 +1,6 @@
 "use strict"
 
-const jwt = require('jsonwebtokens'),
+const jwt = require('jsonwebtoken'),
       crypto = require('crypto'),
       User = require('../models/user'),
       config = require('../config/main');

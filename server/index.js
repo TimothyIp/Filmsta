@@ -4,6 +4,7 @@ const express = require('express'),
       logger = require('morgan'),
       mongoose = require('mongoose'),
       config = require('./config/main');
+      router = require('./router');
 
 //Connecting to database
 mongoose.connect(config.database);
@@ -25,3 +26,5 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Credentials", "true");
   next();
 });
+
+router(app);
