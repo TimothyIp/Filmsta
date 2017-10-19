@@ -10,8 +10,11 @@ const localOptions = {
 };
 
 //Setting up local login strategy
-const localLogin = new LocalStrategy(localOptions, function(email, password, done) {
-  User.findOne({ email: email }, function(err, user) {
+const localLogin = new LocalStrategy(localOptions, function(username, email, password, done) {
+  User.findOne({ $or: [
+    {email: email}, 
+    {username: username}
+  ] }, function(err, user) {
     if (err) { 
       return done(err); 
     }

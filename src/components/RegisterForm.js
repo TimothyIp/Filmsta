@@ -26,7 +26,8 @@ export default class RegisterForm extends React.Component {
     });
   }
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault();
     const { firstName, lastName, username, email, password } = this.state;
     axios.post(`${API_URL}/auth/register`, {firstName, lastName, username, email, password})
     .then(res => {

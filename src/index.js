@@ -6,6 +6,7 @@ import { BrowserRouter, Link, Route } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import Navigation from './components/Navigation';
 import RegisterPage from './components/RegisterPage';
+import LoginPage from './components/LoginPage';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
@@ -19,9 +20,7 @@ class Main extends React.Component {
     }
   }
   componentDidMount() {
-    console.log("mounting main")
     let hasToken = () => {
-      console.log("checking token")
       if (token) {
         this.setState({
           authenticated: true
@@ -37,6 +36,7 @@ class Main extends React.Component {
           <Navigation />
           <Route exact path="/" component={App} />
           <Route path="/register" component={RegisterPage}/>
+          <Route path='/login' component={LoginPage} />
         </div>
       </BrowserRouter>
     )
