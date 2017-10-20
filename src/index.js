@@ -15,11 +15,27 @@ const token = cookies.get('token');
 class Main extends React.Component {
   constructor() {
     super();
+    this.userLogOut = this.userLogOut.bind(this);
     this.state = {
       authenticated: false
     }
   }
+
+  userLogOut = () => {
+    cookies.remove('token', { path: '/' });
+    console.log(token);
+    this.setState({
+      authenticated: false
+    });
+    window.location.href = "/"
+  }
+
+  test = () => {
+    console.log(token);
+  }
+
   componentDidMount() {
+    console.log("token", token)
     let hasToken = () => {
       if (token) {
         this.setState({
@@ -29,11 +45,15 @@ class Main extends React.Component {
     }
     hasToken();
   }
+
   render() {
     return (
       <BrowserRouter>
         <div>
-          <Navigation />
+          <Navigation 
+            userLogOut={this.userLogOut}
+            test={this.test}
+          />
           <Route exact path="/" component={App} />
           <Route path="/register" component={RegisterPage}/>
           <Route path='/login' component={LoginPage} />

@@ -1,5 +1,10 @@
 import React from 'react';
 import { Form, Button } from 'semantic-ui-react';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+const API_URL = 'http://localhost:3000/api';
 
 export default class LoginForm extends React.Component {
   constructor() {
@@ -14,42 +19,47 @@ export default class LoginForm extends React.Component {
 
   handleChange = (event) => {
     this.setState({
-      loginOption : event.target.value
+      [event.target.name] : event.target.value
     })
+  }
+
+  loginUser = () => {
+    const { email, password } = this.state;
+    axios.post(`${API_URL}/auth/login`, {email, password})
+    .then(res => {
+      console.log(res)
+      cookies.set('token', res.data.token, { path: '/' });
+      window.location.href = '/dashboard';
+    })
+    .catch(error => {
+      console.log(error)
+    })
+   
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { loginOption } = this.state;
-    const loginMethod = loginOption;
-    const loginMethodCheck = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+ 
+    this.loginUser();
 
-    this.setState({
-      loginOption: "",
-      email: "",
-      username: ""
-    })
-    
-    if (loginMethodCheck.test(loginMethod)) {
-      this.setState({
-        email: loginMethod
-      });
-    } else {
-      this.setState({
-        username: loginMethod
-      });
-    }
+    // this.setState({
+    //   loginOption: "", 
+    //   email: "",
+    //   username: "",
+    //   password: ""
+    // })
   }
 
   render() {
+    const { email, password } = this.state;
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
         <Form.Group widths="equal">
-          <Form.Input onChange={this.handleChange} name="loginOption" label="Username or Email Address" placeholder="Username or Email Address" />
+          <Form.Input onChange={this.handleChange} value={email} name="email" label="Email Address" placeholder="Email Address" />
         </Form.Group>
         <Form.Group widths="equal">
-          <Form.Input onChange={this.handleChange} name="password" type="password" label="Password" placeholder="Password" />
+          <Form.Input onChange={this.handleChange} value={password} name="password" type="password" label="Password" placeholder="Password" />
         </Form.Group>
         <Button fluid>Submit</Button>
       </Form>
