@@ -29,6 +29,7 @@ export default class LoginForm extends React.Component {
     .then(res => {
       console.log(res)
       cookies.set('token', res.data.token, { path: '/' });
+      cookies.set('user', res.data.user, { path: '/' });
       window.location.href = '/dashboard';
     })
     .catch(error => {

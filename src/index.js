@@ -8,9 +8,12 @@ import Navigation from './components/Navigation';
 import RegisterPage from './components/RegisterPage';
 import LoginPage from './components/LoginPage';
 import Cookies from 'universal-cookie';
+import axios from 'axios';
 
 const cookies = new Cookies();
 const token = cookies.get('token');
+const tokenUser = cookies.get('user')
+const API_URL = "http://localhost:3000/api";
 
 class Main extends React.Component {
   constructor() {
@@ -23,6 +26,7 @@ class Main extends React.Component {
 
   userLogOut = () => {
     cookies.remove('token', { path: '/' });
+    cookies.remove('user', { path: '/' });
     console.log(token);
     this.setState({
       authenticated: false
@@ -31,7 +35,18 @@ class Main extends React.Component {
   }
 
   test = () => {
-    console.log(token);
+    console.log(tokenUser._id);
+    axios.get(`${API_URL}/user/${tokenUser._id}`, {
+      headers: {
+        Authorization: token
+      }
+    })
+    .then(res => {
+      console.log(res)
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   componentDidMount() {
