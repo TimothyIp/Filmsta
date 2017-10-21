@@ -4,10 +4,8 @@ import { Button } from 'semantic-ui-react';
 
 export default class Navigation extends React.Component {
  
-
-
  render() {
-   const { userLogOut, test } = this.props;
+   const { userLogOut, test } = {...this.props};
    return (
     <div>
       Navigation Bar

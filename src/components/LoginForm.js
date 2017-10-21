@@ -1,10 +1,5 @@
 import React from 'react';
-import { Form, Button } from 'semantic-ui-react';
-import axios from 'axios';
-import Cookies from 'universal-cookie';
-
-const cookies = new Cookies();
-const API_URL = 'http://localhost:3000/api';
+import { Form, Button, Message } from 'semantic-ui-react';
 
 export default class LoginForm extends React.Component {
   constructor() {
@@ -23,39 +18,26 @@ export default class LoginForm extends React.Component {
     })
   }
 
-  loginUser = () => {
-    const { email, password } = this.state;
-    axios.post(`${API_URL}/auth/login`, {email, password})
-    .then(res => {
-      console.log(res)
-      cookies.set('token', res.data.token, { path: '/' });
-      cookies.set('user', res.data.user, { path: '/' });
-      window.location.href = '/dashboard';
-    })
-    .catch(error => {
-      console.log(error)
-    })
-   
-  }
-
   handleSubmit = (e) => {
     e.preventDefault();
+    const { email, password } = this.state;
  
-    this.loginUser();
+    this.props.userLogin({email, password});
 
-    // this.setState({
-    //   loginOption: "", 
-    //   email: "",
-    //   username: "",
-    //   password: ""
-    // })
+    this.setState({
+      loginOption: "", 
+      email: "",
+      username: "",
+      password: ""
+    })
   }
 
   render() {
     const { email, password } = this.state;
+    const { loginErrors } = this.props;
     return (
       <div>
-        <Form onSubmit={this.handleSubmit}>
+        <Form error onSubmit={this.handleSubmit}>
         <Form.Group widths="equal">
           <Form.Input onChange={this.handleChange} value={email} name="email" label="Email Address" placeholder="Email Address" />
         </Form.Group>
@@ -63,6 +45,11 @@ export default class LoginForm extends React.Component {
           <Form.Input onChange={this.handleChange} value={password} name="password" type="password" label="Password" placeholder="Password" />
         </Form.Group>
         <Button fluid>Submit</Button>
+        {loginErrors.length ? <Message 
+          error
+          header="Wrong login information"
+          content="Must enter a correct email address or password"
+        /> : null}
       </Form>
       </div>
     )

@@ -15,7 +15,7 @@ const setUserInfo = function (request) {
 
 exports.viewProfile = function(req, res, next) {
   const userId = req.params.userId;
-  console.log("viewing profile");
+
   if (req.user._id.toString() !== userId) {
     return res.status(401).json({
       error: "You are not authorized to view this user profile."

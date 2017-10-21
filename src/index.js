@@ -18,13 +18,50 @@ const API_URL = "http://localhost:3000/api";
 class Main extends React.Component {
   constructor() {
     super();
+
+    this.userLogin = this.userLogin.bind(this);
     this.userLogOut = this.userLogOut.bind(this);
+
     this.state = {
-      authenticated: false
+      username: "",
+      id: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      authenticated: false,
+      loginErrors: []
     }
   }
 
+  userLogin = ({email, password}) => {
+    axios.post(`${API_URL}/auth/login`, {email, password})
+    .then(res => {
+      console.log(res)
+      const userInfo = res.data.user;
+      cookies.set('token', res.data.token, { path: '/' });
+      cookies.set('user', res.data.user, { path: '/' });
+      window.location.href = `/${res.data.user.username}`;
+      this.setState({
+        username: userInfo.username,
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        email: userInfo.email,
+        id: userInfo._id,
+        authenticated: true,
+        loginErrors: []
+      })
+    })
+    .catch(error => {
+      const errorLog = Array.from(this.state.loginErrors);
+      errorLog.push(error)
+      this.setState({
+        loginErrors: errorLog
+      })
+    })
+  }
+
   userLogOut = () => {
+    console.log("LOGGED OUT")
     cookies.remove('token', { path: '/' });
     cookies.remove('user', { path: '/' });
     console.log(token);
@@ -34,26 +71,30 @@ class Main extends React.Component {
     window.location.href = "/"
   }
 
-  test = () => {
-    console.log(tokenUser._id);
-    axios.get(`${API_URL}/user/${tokenUser._id}`, {
-      headers: {
-        Authorization: token
-      }
-    })
-    .then(res => {
-      console.log(res)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }
+  // test = () => {
+  //   axios.get(`${API_URL}/user/${tokenUser._id}`, {
+  //     headers: {
+  //       Authorization: token
+  //     }
+  //   })
+  //   .then(res => {
+  //     console.log(res)
+  //   })
+  //   .catch(err => {
+  //     console.log(err)
+  //   })
+  // }
 
   componentDidMount() {
-    console.log("token", token)
+    console.log("token", cookies.get('user'), token)
     let hasToken = () => {
       if (token) {
+
         this.setState({
+          username: tokenUser.username,
+          firstName: tokenUser.firstName,
+          lastName: tokenUser.lastName,
+          id: tokenUser._id,
           authenticated: true
         })
       }
@@ -62,16 +103,24 @@ class Main extends React.Component {
   }
 
   render() {
+
     return (
       <BrowserRouter>
         <div>
           <Navigation 
+            userLogin={this.userLogin}
             userLogOut={this.userLogOut}
             test={this.test}
           />
           <Route exact path="/" component={App} />
           <Route path="/register" component={RegisterPage}/>
-          <Route path='/login' component={LoginPage} />
+          <Route path="/login" 
+                 render={(props) => 
+                 <LoginPage 
+                  {...this.state}
+                  userLogin={this.userLogin} 
+                 />}
+          />
         </div>
       </BrowserRouter>
     )
