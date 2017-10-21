@@ -37,3 +37,4 @@ exports.viewProfile = function(req, res, next) {
     })
   });
 }
+
