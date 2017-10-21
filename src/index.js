@@ -9,6 +9,7 @@ import RegisterPage from './components/RegisterPage';
 import LoginPage from './components/LoginPage';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import UserPage from './components/UserPage';
 
 const cookies = new Cookies();
 const token = cookies.get('token');
@@ -40,7 +41,7 @@ class Main extends React.Component {
       const userInfo = res.data.user;
       cookies.set('token', res.data.token, { path: '/' });
       cookies.set('user', res.data.user, { path: '/' });
-      window.location.href = `/${res.data.user.username}`;
+      window.location.href = `/user/${res.data.user.username}`;
       this.setState({
         username: userInfo.username,
         firstName: userInfo.firstName,
@@ -107,7 +108,8 @@ class Main extends React.Component {
     return (
       <BrowserRouter>
         <div>
-          <Navigation 
+          <Navigation
+            {...this.state} 
             userLogin={this.userLogin}
             userLogOut={this.userLogOut}
             test={this.test}
@@ -120,6 +122,9 @@ class Main extends React.Component {
                   {...this.state}
                   userLogin={this.userLogin} 
                  />}
+          />
+          <Route  exact strict path="/user/:username"
+                  component={UserPage}
           />
         </div>
       </BrowserRouter>

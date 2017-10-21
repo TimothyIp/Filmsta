@@ -27,8 +27,12 @@ module.exports = function(app) {
   // User Routes
   apiRoutes.use('/user', userRoutes);
 
-  // View a user's profile route
+   //View a user's profile
+  userRoutes.get('/:username', UserController.viewPage);
+
+  // View user's profile settings route
   userRoutes.get('/:userId', requireAuth, UserController.viewProfile);
+
 
   // Set url for API group routes
   app.use('/api', apiRoutes);

@@ -50,8 +50,3 @@ export default class LoginForm extends React.Component {
     )
   }
 }
-// {loginErrors.length ? <Message 
-//   error
-//   header="Wrong login information"
-//   content="Must enter a correct email address or password"
-// /> : null}
