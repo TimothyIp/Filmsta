@@ -40,9 +40,14 @@ exports.register = function(req, res, next) {
   const lastName = req.body.lastName;
   const password = req.body.password;
 
-  if (!email) {
+  function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+  if (!validateEmail(email)) {
     return res.status(422).send({
-      error: 'You must enter an email address.'
+      error: 'You must enter a valid email address.'
     });
   }
 
@@ -74,7 +79,7 @@ exports.register = function(req, res, next) {
 
     if (existingUser) {
       return res.status(422).send({
-        error: 'That email address or username is already in use'
+        error: 'That email address or username is already in use.'
       });
     }
 

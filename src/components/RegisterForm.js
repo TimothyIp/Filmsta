@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button, Message } from 'semantic-ui-react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
@@ -16,7 +16,8 @@ export default class RegisterForm extends React.Component {
       firstName: "",
       lastName: "",
       email: "",
-      password: ""
+      password: "",
+      registrationError: []
     }
   };
 
@@ -38,21 +39,35 @@ export default class RegisterForm extends React.Component {
     })
     .catch((error) => {
       console.log(error);
+      const errorLog = Array.from(this.state.registrationError);
+
+      errorLog.push(error);
+
+      this.setState({
+        registrationError: errorLog
+      })
+
     })
   }
 
   render () {
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleSubmit} error>
         <Form.Group widths="equal">
           <Form.Input onChange={this.handleChange} name="username" label="Username" placeholder="Username" />
         </Form.Group>
         <Form.Group widths="equal">
+          <Form.Input onChange={this.handleChange} name="email" label="Email Address" placeholder="Email Address" />
+        </Form.Group>
+        {this.state.registrationError.length ?
+        <Message 
+          error
+          header="Already Taken"
+          content={`${this.state.registrationError.length ? `${this.state.registrationError[0].response.data.error}` : null}`}
+        /> : null}
+        <Form.Group widths="equal">
           <Form.Input onChange={this.handleChange} name="firstName" label="First Name" placeholder="First Name" />
           <Form.Input onChange={this.handleChange} name="lastName" label="Last Name" placeholder="Last Name" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <Form.Input onChange={this.handleChange} name="email" label="Email Address" placeholder="Email Address" />
         </Form.Group>
         <Form.Group widths="equal">
           <Form.Input onChange={this.handleChange} name="password" type="password" label="Password" placeholder="Password" />
