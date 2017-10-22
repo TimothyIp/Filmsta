@@ -14,7 +14,7 @@ export default class UserPage extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`${API_URL}/${this.props.match.params.username}`)
+    axios.get(`${API_URL}/${this.props.params.username}`)
     .then(res => {
       this.setState({
         viewedUser: res.data.user
@@ -31,10 +31,13 @@ export default class UserPage extends React.Component {
 
 
   render () {
+    
+
     return (
       <div>
         <h3>Profile of {this.state.viewedUser.firstName}</h3>
         <p>Their info will be here</p>
+        <button>Add Movie</button>
         {
           (this.state.errorLog.length) 
             ? this.state.errorLog[0].response.data.error

@@ -119,12 +119,17 @@ class Main extends React.Component {
           <Route path="/login" 
                  render={(props) => 
                  <LoginPage 
-                  {...this.state}
-                  userLogin={this.userLogin} 
+                    {...this.state}
+                    userLogin={this.userLogin} 
                  />}
           />
           <Route  exact strict path="/user/:username"
-                  component={UserPage}
+                  render={({match}) => 
+                  <UserPage
+                    {...this.state}
+                    {...match}
+                  />
+                  }
           />
         </div>
       </BrowserRouter>
