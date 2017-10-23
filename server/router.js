@@ -3,6 +3,7 @@ const AuthenicationController = require('./controllers/authentication'),
       passportService = require('./config/passport'),
       passport = require('passport'),
       UserController = require('./controllers/user');
+      MovieController = require('./controllers/movie');
 
 //Middleware for login/auth
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -11,7 +12,8 @@ const requireLogin = passport.authenticate('local', { session: false });
 module.exports = function(app) {
   const apiRoutes = express.Router(),
         authRoutes = express.Router(),
-        userRoutes = express.Router();
+        userRoutes = express.Router(),
+        searchRoutes = express.Router();
 
 
   // AUTH ROUTES
@@ -33,6 +35,10 @@ module.exports = function(app) {
   // View user's profile settings route
   userRoutes.get('/:userId', requireAuth, UserController.viewProfile);
 
+  // Search Routes
+  apiRoutes.use('/search', searchRoutes);
+
+  searchRoutes.post('/:movieName', MovieController.searchShow);
 
   // Set url for API group routes
   app.use('/api', apiRoutes);

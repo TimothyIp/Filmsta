@@ -12,7 +12,7 @@ export default class Navigation extends React.Component {
       Navigation Bar
       {
         !id ? <Link to="/">Home</Link>
-            : <Link to={`/${username}`}>Home</Link>
+            : <Link to={`/user/${username}`}>Home</Link>
       }
       <Link to="/register">Register</Link>
       { 
