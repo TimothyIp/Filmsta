@@ -17,6 +17,8 @@ const SearchPage = (props) => {
               <li key={`movieId-${index}`}>
                 <MovieCard 
                 movie={movie}
+                handleMovieInfoDisplay={props.handleMovieInfoDisplay}
+                activeMovieInfo={props.activeMovieInfo}
                 />
               </li>
             )

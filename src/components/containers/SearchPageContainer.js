@@ -10,10 +10,12 @@ export default class SearchPageContainer extends React.Component {
 
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+    this.handleMovieInfoDisplay = this.handleMovieInfoDisplay.bind(this);
 
     this.state = {
       searchedShows: "",
-      movieResults: []
+      movieResults: [],
+      activeMovieInfo:"",
     }
   }
 
@@ -27,6 +29,13 @@ export default class SearchPageContainer extends React.Component {
     const searchedShows = this.state.searchedShows;
     e.preventDefault();
     this.getMovieResults(searchedShows);
+  }
+
+  handleMovieInfoDisplay = (movie) => {
+    console.log(movie)
+    this.setState({
+      activeMovieInfo: movie
+    })
   }
 
   // Filtering out movies with no posters
@@ -60,6 +69,7 @@ export default class SearchPageContainer extends React.Component {
       <SearchPage
         handleSearchChange={this.handleSearchChange}
         handleSearchSubmit={this.handleSearchSubmit}
+        handleMovieInfoDisplay={this.handleMovieInfoDisplay}
         {...this.state}
       />
     )
