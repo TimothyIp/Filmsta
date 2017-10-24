@@ -50,7 +50,7 @@ export default class MovieCard extends React.Component {
             (this.props.movie.title === this.props.activeMovieInfo)
               ? <div>
                   <button onClick={this.closeInfo}>Close</button>
-                  <img src={`${backdropPath}${this.props.movie.backdrop_path}`} alt=""/>
+                  <img src={`${backdropPath}${this.props.movie.backdrop_path}`} alt={`Backdrop of Movie Poster - ${this.props.movie.title}`}/>
                   <h2>
                     {this.props.movie.title}
                   </h2>

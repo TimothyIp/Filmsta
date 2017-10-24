@@ -18,9 +18,16 @@ exports.searchShow = (req, res, next) => {
   async function sendMovieRes() {
     try {
       const movieCall = await axios(movieDbCall);
-      moviesReturned = {
-        moviesRequested: movieCall.data
-      };
+      if(movieCall.data.results.length > 1) {
+        moviesReturned = {
+          moviesRequested: movieCall.data
+        }
+      } else {
+        return res.status(400).json({
+          error: "Movie could not be found."
+        })
+        return next();
+      }
       const movieResponse = await sendMovieResponse();
       return movieResponse;
     } catch(e) {

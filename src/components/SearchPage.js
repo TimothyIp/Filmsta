@@ -11,7 +11,7 @@ const SearchPage = (props) => {
       handleSearchSubmit={props.handleSearchSubmit}
       />
       {
-        (props.movieResults.length > 1)
+        (props.movieResults.length)
           ? props.movieResults.map((movie, index) => {
             return (
               <li key={`movieId-${index}`}>
@@ -23,6 +23,11 @@ const SearchPage = (props) => {
               </li>
             )
           })
+          : null
+      }
+      {
+        (props.errorLog.length)
+          ? <p>Could not find movie.</p>
           : null
       }
     </div>

@@ -36,6 +36,9 @@ export default class RegisterForm extends React.Component {
       console.log(res)
       cookies.set('token', res.data.token, { path: "/" });
       cookies.set('user', res.data.user, { path: "/" });
+      this.setState({
+        registrationError: []
+      })
       window.location.href = `/user/${res.data.user.username}`;
     })
     .catch((error) => {

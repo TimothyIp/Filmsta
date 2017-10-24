@@ -90,7 +90,6 @@ class Main extends React.Component {
     console.log("token", cookies.get('user'), token)
     let hasToken = () => {
       if (token) {
-
         this.setState({
           username: tokenUser.username,
           firstName: tokenUser.firstName,

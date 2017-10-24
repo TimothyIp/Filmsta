@@ -1,7 +1,10 @@
 import React from 'react';
 import SearchPage from '../SearchPage';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
+const token = cookies.get('token');
 const API_URL = 'http://localhost:3000/api/search';
 
 export default class SearchPageContainer extends React.Component {
@@ -16,6 +19,7 @@ export default class SearchPageContainer extends React.Component {
       searchedShows: "",
       movieResults: [],
       activeMovieInfo:"",
+      errorLog: []
     }
   }
 
@@ -51,16 +55,24 @@ export default class SearchPageContainer extends React.Component {
   }
 
   getMovieResults = (show) => {
-    axios.post(`${API_URL}/${show}`)
+    axios.post(`${API_URL}/${show}`, {
+      headers: { Authorization: token }
+    })
     .then(res => {
-      const movieResults = res.data.response.moviesRequested.results
-      console.log(this.checkPosterPath(movieResults))
+      const movieResults = res.data.response.moviesRequested.results;
+      console.log(this.checkPosterPath(movieResults));
       this.setState({
+        errorLog:[],
         movieResults: this.checkPosterPath(movieResults)
       })
     })
     .catch(error => {
-      console.log(error)
+      console.log("error",error)
+      const errorMsg = Array.from(this.state.errorLog);
+      errorMsg.push(error);
+      this.setState({
+        errorLog: errorMsg
+      })
     })
   }
 
