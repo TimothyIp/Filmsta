@@ -35,10 +35,13 @@ module.exports = function(app) {
   // View user's profile settings route
   userRoutes.get('/:userId', requireAuth, UserController.viewProfile);
 
+  // Add to user's database
+  userRoutes.post('/addmovie', requireAuth, UserController.addToUserCollection);
+
   // Search Routes
   apiRoutes.use('/search', searchRoutes);
 
-  searchRoutes.post('/:movieName', MovieController.searchShow);
+  searchRoutes.post('/:movieName', requireAuth, MovieController.searchShow);
 
   // Set url for API group routes
   app.use('/api', apiRoutes);

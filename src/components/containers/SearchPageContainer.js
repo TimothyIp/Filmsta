@@ -5,7 +5,7 @@ import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 const token = cookies.get('token');
-const API_URL = 'http://localhost:3000/api/search';
+const API_URL = 'http://localhost:3000/api';
 
 export default class SearchPageContainer extends React.Component {
   constructor() {
@@ -14,12 +14,14 @@ export default class SearchPageContainer extends React.Component {
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
     this.handleMovieInfoDisplay = this.handleMovieInfoDisplay.bind(this);
+    this.addToUsersMovies = this.addToUsersMovies.bind(this);
 
     this.state = {
       searchedShows: "",
       movieResults: [],
       activeMovieInfo:"",
-      errorLog: []
+      errorLog: [],
+      usersMovies: [],
     }
   }
 
@@ -55,7 +57,7 @@ export default class SearchPageContainer extends React.Component {
   }
 
   getMovieResults = (show) => {
-    axios.post(`${API_URL}/${show}`, {
+    axios.post(`${API_URL}/search/${show}`, null, {
       headers: { Authorization: token }
     })
     .then(res => {
@@ -71,8 +73,24 @@ export default class SearchPageContainer extends React.Component {
       const errorMsg = Array.from(this.state.errorLog);
       errorMsg.push(error);
       this.setState({
+        movieResults: "",
         errorLog: errorMsg
       })
+    })
+  }
+
+  addToUsersMovies = (movie) => {
+    const addToUsersCollection = Array.from(this.state.usersMovies);
+    addToUsersCollection.push(movie);
+    console.log(addToUsersCollection);
+    this.setState({
+      usersMovies: addToUsersCollection
+    })
+
+    axios.post(`${API_URL}/user/addmovie`, {addToUsersCollection}, {
+      headers: {
+        Authorization: token
+      }
     })
   }
 
@@ -82,6 +100,7 @@ export default class SearchPageContainer extends React.Component {
         handleSearchChange={this.handleSearchChange}
         handleSearchSubmit={this.handleSearchSubmit}
         handleMovieInfoDisplay={this.handleMovieInfoDisplay}
+        addToUsersMovies={this.addToUsersMovies}
         {...this.state}
       />
     )

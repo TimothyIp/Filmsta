@@ -19,6 +19,7 @@ const SearchPage = (props) => {
                 movie={movie}
                 handleMovieInfoDisplay={props.handleMovieInfoDisplay}
                 activeMovieInfo={props.activeMovieInfo}
+                addToUsersMovies={props.addToUsersMovies}
                 />
               </li>
             )

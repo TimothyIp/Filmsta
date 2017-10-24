@@ -46,6 +46,9 @@ export default class MovieCard extends React.Component {
           <p>
             {this.props.movie.title}
           </p>
+          <p>
+            <button onClick={() => {this.props.addToUsersMovies(this.props.movie)}}>Add</button>
+          </p>
           {
             (this.props.movie.title === this.props.activeMovieInfo)
               ? <div>

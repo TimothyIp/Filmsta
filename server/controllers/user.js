@@ -67,3 +67,8 @@ exports.viewPage = function(req, res, next) {
   })
 }
 
+exports.addToUserCollection = function(req, res , next) {
+  const testing = req.body;
+
+  console.log(testing);
+}

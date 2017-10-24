@@ -2,6 +2,8 @@ const mongoose = require('mongoose'),
       Schema = mongoose.Schema,
       bcrypt = require('bcrypt-nodejs');
 
+      
+
 const UserSchema = new Schema({
   email: {
     type: String,
@@ -26,9 +28,10 @@ const UserSchema = new Schema({
       type: String
     }
   },
-  movies: {
-    type: Object
-  },
+  movies: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Movie'
+  }],
   role: {
     type: String,
     enum: ['Member', 'Admin'],

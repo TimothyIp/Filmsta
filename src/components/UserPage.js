@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import AddMovieButton from './AddMovieButton';
 import SearchPageContainer from './containers/SearchPageContainer';
-import SearchPage from './SearchPage';
 
 const API_URL = 'http://localhost:3000/api/user';
 
