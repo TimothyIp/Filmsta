@@ -2,7 +2,7 @@ import React from 'react';
 import SearchPage from '../SearchPage';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api/search'
+const API_URL = 'http://localhost:3000/api/search';
 
 export default class SearchPageContainer extends React.Component {
   constructor() {
@@ -12,7 +12,8 @@ export default class SearchPageContainer extends React.Component {
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
 
     this.state = {
-      searchedShows: ""
+      searchedShows: "",
+      movieResults: []
     }
   }
 
@@ -28,10 +29,26 @@ export default class SearchPageContainer extends React.Component {
     this.getMovieResults(searchedShows);
   }
 
+  // Filtering out movies with no posters
+  checkPosterPath(movies) {
+    let moviesArr = [];
+    const moviesLength = movies.length
+    for (let i = 0; i < moviesLength; i++) {
+      if (movies[i].backdrop_path && movies[i].poster_path) {
+        moviesArr.push(movies[i]);
+      }
+    }
+    return moviesArr;
+  }
+
   getMovieResults = (show) => {
     axios.post(`${API_URL}/${show}`)
     .then(res => {
-      console.log(res)
+      const movieResults = res.data.response.moviesRequested.results
+      console.log(this.checkPosterPath(movieResults))
+      this.setState({
+        movieResults: this.checkPosterPath(movieResults)
+      })
     })
     .catch(error => {
       console.log(error)
@@ -40,9 +57,10 @@ export default class SearchPageContainer extends React.Component {
 
   render() {
     return (
-      <SearchPage 
+      <SearchPage
         handleSearchChange={this.handleSearchChange}
         handleSearchSubmit={this.handleSearchSubmit}
+        {...this.state}
       />
     )
   }
