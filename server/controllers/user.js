@@ -1,5 +1,5 @@
 const User = require('../models/user');
-      
+
 const setUserInfo = function (request) {
   const getUserInfo = {
     _id: request._id,
@@ -7,18 +7,23 @@ const setUserInfo = function (request) {
     lastName: request.profile.lastName,
     username : request.username,
     email: request.email,
-    role: request.role
+    role: request.role,
+    movies: request.movies
   };
 
   return getUserInfo;
 };
 
 const setViewedUserInfo = function (request) {
+
   const getUserInfo = {
     username: request.username,
     role: request.role,
-    firstName: request.profile.firstName
+    firstName: request.profile.firstName,
+    movies: request.movies
   };
+
+
 
   return getUserInfo;
 };
@@ -68,7 +73,42 @@ exports.viewPage = function(req, res, next) {
 }
 
 exports.addToUserCollection = function(req, res , next) {
-  const testing = req.body;
+  const movieTitle = req.body.movie.title;
+  const backdrop_path = req.body.movie.backdrop_path;
+  const overview = req.body.movie.overview;
+  const poster_path = req.body.movie.poster_path;
+  const release_date = req.body.movie.release_date
+  const userId = req.user._id;
 
-  console.log(testing);
+  // console.log("moviestoadd", movieTitle)
+  // console.log(req.user._id)
+  User.findById(userId, (err, foundUser) => {
+    if (err) {
+      res.status(422).json({
+        error: 'No user found.'
+      })
+      return next(err);
+    }
+
+    if (foundUser) {
+      const movieInfo = {
+        movieTitle: movieTitle,
+        backdrop_path: backdrop_path,
+        overview: overview,
+        poster_path: poster_path,
+        release_date: release_date
+      }
+      foundUser.movies.push(movieInfo);
+      
+      foundUser.save((error) => {
+        if (error) {
+          return next(error);
+        }
+        return res.status(200).json({
+          message: 'Movie added to user collection',
+          added: movieInfo
+        }) 
+      })
+    }
+  });
 }

@@ -2,7 +2,6 @@ const mongoose = require('mongoose'),
       Schema = mongoose.Schema,
       bcrypt = require('bcrypt-nodejs');
 
-      
 
 const UserSchema = new Schema({
   email: {
@@ -29,8 +28,15 @@ const UserSchema = new Schema({
     }
   },
   movies: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Movie'
+    addedBy: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    movieTitle: String,
+    backdrop_path: String,
+    overview: String,
+    poster_path: String,
+    release_date: String
   }],
   role: {
     type: String,

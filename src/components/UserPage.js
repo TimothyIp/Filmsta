@@ -10,19 +10,33 @@ export default class UserPage extends React.Component {
     super();
     
     this.searchPageView = this.searchPageView.bind(this);
+    this.collectionSync = this.collectionSync.bind(this);
 
     this.state = {
       viewedUser: "",
       errorLog: [],
-      searchPageOn: false
+      searchPageOn: false,
+      usersCollection: []
     }
   }
 
   componentDidMount() {
+    this.collectionSync();
+  }
+
+  searchPageView(e) {
+    this.setState(prevState => ({
+      searchPageOn: !prevState.searchPageOn
+    }))
+  }
+
+  collectionSync() {
+    console.log("SYNCING UP")
     axios.get(`${API_URL}/${this.props.params.username}`)
     .then(res => {
       this.setState({
-        viewedUser: res.data.user
+        viewedUser: res.data.user,
+        usersCollection: res.data.user.movies
       })
     })
     .catch(error => {
@@ -34,19 +48,15 @@ export default class UserPage extends React.Component {
     })
   }
 
-  searchPageView(e) {
-    this.setState(prevState => ({
-      searchPageOn: !prevState.searchPageOn
-    }))
-  }
-
   render () {
     return (
       <div>
         <h3>Profile of {this.state.viewedUser.firstName}</h3>
         <div>
           {
-            this.state.searchPageOn && <SearchPageContainer />
+            this.state.searchPageOn && <SearchPageContainer 
+                                          collectionSync={this.collectionSync}
+                                       />
           }
         </div>
         <p>Their info will be here</p>

@@ -20,8 +20,7 @@ export default class SearchPageContainer extends React.Component {
       searchedShows: "",
       movieResults: [],
       activeMovieInfo:"",
-      errorLog: [],
-      usersMovies: [],
+      errorLog: []
     }
   }
 
@@ -80,17 +79,16 @@ export default class SearchPageContainer extends React.Component {
   }
 
   addToUsersMovies = (movie) => {
-    const addToUsersCollection = Array.from(this.state.usersMovies);
-    addToUsersCollection.push(movie);
-    console.log(addToUsersCollection);
-    this.setState({
-      usersMovies: addToUsersCollection
-    })
-
-    axios.post(`${API_URL}/user/addmovie`, {addToUsersCollection}, {
+    axios.post(`${API_URL}/user/addmovie`, {movie}, {
       headers: {
         Authorization: token
       }
+    })
+    .then(res => {
+      this.props.collectionSync();
+    })
+    .catch(error => {
+      console.log(error)
     })
   }
 
