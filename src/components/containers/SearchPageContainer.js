@@ -44,7 +44,7 @@ export default class SearchPageContainer extends React.Component {
   }
 
   // Filtering out movies with no posters
-  checkPosterPath(movies) {
+  checkPosterPath = (movies) => {
     let moviesArr = [];
     const moviesLength = movies.length
     for (let i = 0; i < moviesLength; i++) {

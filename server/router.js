@@ -38,6 +38,9 @@ module.exports = function(app) {
   // Add to user's database
   userRoutes.post('/addmovie', requireAuth, UserController.addToUserCollection);
 
+  // Remove from user's database
+  userRoutes.post('/removemovie', requireAuth, UserController.removeFromUserCollection);
+
   // Search Routes
   apiRoutes.use('/search', searchRoutes);
 

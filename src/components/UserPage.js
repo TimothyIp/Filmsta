@@ -2,8 +2,13 @@ import React from 'react';
 import axios from 'axios';
 import AddMovieButton from './AddMovieButton';
 import SearchPageContainer from './containers/SearchPageContainer';
+import UserCollection from './UserCollection';
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
+const token = cookies.get('token');
 const API_URL = 'http://localhost:3000/api/user';
+
 
 export default class UserPage extends React.Component {
   constructor() {
@@ -11,12 +16,16 @@ export default class UserPage extends React.Component {
     
     this.searchPageView = this.searchPageView.bind(this);
     this.collectionSync = this.collectionSync.bind(this);
+    this.handleDisplay = this.handleDisplay.bind(this);
+    this.handleDisplayClose = this.handleDisplayClose.bind(this);
+    this.removeFromUserCollection = this.removeFromUserCollection.bind(this);
 
     this.state = {
       viewedUser: "",
       errorLog: [],
       searchPageOn: false,
-      usersCollection: []
+      usersCollection: [],
+      activeDisplay: ""
     }
   }
 
@@ -31,7 +40,7 @@ export default class UserPage extends React.Component {
   }
 
   collectionSync() {
-    console.log("SYNCING UP")
+    console.log("SYNCING UP with database")
     axios.get(`${API_URL}/${this.props.params.username}`)
     .then(res => {
       this.setState({
@@ -45,6 +54,33 @@ export default class UserPage extends React.Component {
       this.setState({
         errorLog: errorMsg
       })
+    })
+  }
+
+  handleDisplay = (movie) => {
+    this.setState({
+      activeDisplay: movie
+    });
+  }
+
+  handleDisplayClose = () => {
+    this.setState({
+      activeDisplay: ""
+    });
+  }
+
+  removeFromUserCollection = (movie) => {
+    axios.post(`${API_URL}/removemovie`, {movie}, {
+      headers: {
+        Authorization: token
+      }
+    })
+    .then(res => {
+      console.log(res)
+      this.collectionSync();
+    })
+    .catch(error => {
+      console.log(error)
     })
   }
 
@@ -63,14 +99,33 @@ export default class UserPage extends React.Component {
         {
           (this.props.username === this.props.params.username)
             ? <AddMovieButton 
-            searchPageView={this.searchPageView}
-            />
+                searchPageView={this.searchPageView}
+              />
             : null
         }
         {
           (this.state.errorLog.length) 
             ? this.state.errorLog[0].response.data.error
             : null 
+        }
+        {
+          (this.state.usersCollection)
+            ? <ul>
+                {this.state.usersCollection.map((movie, index) => {
+                  return (
+                    <li key={`usersMovieId-${index}`}>
+                      <UserCollection
+                      movie={movie}
+                      handleDisplay={this.handleDisplay}
+                      handleDisplayClose={this.handleDisplayClose}
+                      removeFromUserCollection={this.removeFromUserCollection}
+                      {...this.state}
+                      />
+                    </li>
+                  )
+                })}
+              </ul>
+            : null
         }
       </div>
     )

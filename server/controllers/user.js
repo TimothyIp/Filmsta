@@ -104,11 +104,46 @@ exports.addToUserCollection = function(req, res , next) {
         if (error) {
           return next(error);
         }
+
         return res.status(200).json({
-          message: 'Movie added to user collection',
+          message: 'Movie added to users collection',
           added: movieInfo
         }) 
       })
+    }
+  });
+}
+
+exports.removeFromUserCollection = function(req, res, next) {  
+  const removedMovie = req.body.movie;
+  const userId = req.user._id;
+  
+  User.findById(userId, (err, foundUser) => {
+    if (err) {
+      res.status(422).json({
+        error: 'No user found.'
+      })
+      return next(err);
+    }
+
+    if (foundUser) {
+      const movieList = foundUser.movies;
+      
+      for (let i = movieList.length - 1; i >= 0; i--) {
+        if (movieList[i].movieTitle===removedMovie) {
+          movieList.splice(i,1);
+        }
+      }
+      foundUser.save((error) => {
+        if (error) {
+          return next(error);
+        }
+
+        return res.status(200).json({
+          message: 'Movie removed from users collection.',
+          removedMovie: removedMovie
+        })
+      });
     }
   });
 }

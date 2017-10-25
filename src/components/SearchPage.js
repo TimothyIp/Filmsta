@@ -12,18 +12,20 @@ const SearchPage = (props) => {
       />
       {
         (props.movieResults.length)
-          ? props.movieResults.map((movie, index) => {
-            return (
-              <li key={`movieId-${index}`}>
-                <MovieCard 
-                movie={movie}
-                handleMovieInfoDisplay={props.handleMovieInfoDisplay}
-                activeMovieInfo={props.activeMovieInfo}
-                addToUsersMovies={props.addToUsersMovies}
-                />
-              </li>
-            )
-          })
+          ? <ul>
+              {props.movieResults.map((movie, index) => {
+                return (
+                  <li key={`movieId-${index}`}>
+                    <MovieCard 
+                    movie={movie}
+                    handleMovieInfoDisplay={props.handleMovieInfoDisplay}
+                    activeMovieInfo={props.activeMovieInfo}
+                    addToUsersMovies={props.addToUsersMovies}
+                    />
+                  </li>
+                )
+              })}
+            </ul>
           : null
       }
       {
