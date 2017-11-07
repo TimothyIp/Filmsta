@@ -14,12 +14,6 @@ export default class UserPage extends React.Component {
   constructor() {
     super();
     
-    this.searchPageView = this.searchPageView.bind(this);
-    this.collectionSync = this.collectionSync.bind(this);
-    this.handleDisplay = this.handleDisplay.bind(this);
-    this.handleDisplayClose = this.handleDisplayClose.bind(this);
-    this.removeFromUserCollection = this.removeFromUserCollection.bind(this);
-
     this.state = {
       viewedUser: "",
       errorLog: [],
@@ -33,13 +27,13 @@ export default class UserPage extends React.Component {
     this.collectionSync();
   }
 
-  searchPageView(e) {
+  searchPageView = (e) => {
     this.setState(prevState => ({
       searchPageOn: !prevState.searchPageOn
     }))
   }
 
-  collectionSync() {
+  collectionSync = () => {
     console.log("SYNCING UP with database")
     axios.get(`${API_URL}/${this.props.params.username}`)
     .then(res => {

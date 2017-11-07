@@ -11,11 +11,6 @@ export default class SearchPageContainer extends React.Component {
   constructor() {
     super();
 
-    this.handleSearchChange = this.handleSearchChange.bind(this);
-    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
-    this.handleMovieInfoDisplay = this.handleMovieInfoDisplay.bind(this);
-    this.addToUsersMovies = this.addToUsersMovies.bind(this);
-
     this.state = {
       searchedShows: "",
       movieResults: [],
