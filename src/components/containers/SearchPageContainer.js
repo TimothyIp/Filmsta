@@ -1,10 +1,7 @@
 import React from 'react';
 import SearchPage from '../SearchPage';
 import axios from 'axios';
-import Cookies from 'universal-cookie';
 
-const cookies = new Cookies();
-const token = cookies.get('token');
 const API_URL = 'http://localhost:3000/api';
 
 export default class SearchPageContainer extends React.Component {
@@ -51,6 +48,9 @@ export default class SearchPageContainer extends React.Component {
   }
 
   getMovieResults = (show) => {
+    const { cookies } = this.props;
+    const token = cookies.get('token');
+    
     axios.post(`${API_URL}/search/${show}`, null, {
       headers: { Authorization: token }
     })
@@ -74,6 +74,9 @@ export default class SearchPageContainer extends React.Component {
   }
 
   addToUsersMovies = (movie) => {
+    const { cookies } = this.props;
+    const token = cookies.get('token');
+
     axios.post(`${API_URL}/user/addmovie`, {movie}, {
       headers: {
         Authorization: token

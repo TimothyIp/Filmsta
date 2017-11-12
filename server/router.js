@@ -38,6 +38,9 @@ module.exports = function(app) {
   // Add to user's database
   userRoutes.post('/addmovie', requireAuth, UserController.addToUserCollection);
 
+  // Add a review
+//   userRoutes.post('/addreview', requireAuth, UserController.addToUserReviews);
+
   // Remove from user's database
   userRoutes.post('/removemovie', requireAuth, UserController.removeFromUserCollection);
 

@@ -3,10 +3,7 @@ import axios from 'axios';
 import AddMovieButton from './AddMovieButton';
 import SearchPageContainer from './containers/SearchPageContainer';
 import UserCollection from './UserCollection';
-import Cookies from 'universal-cookie';
 
-const cookies = new Cookies();
-const token = cookies.get('token');
 const API_URL = 'http://localhost:3000/api/user';
 
 
@@ -64,6 +61,9 @@ export default class UserPage extends React.Component {
   }
 
   removeFromUserCollection = (movie) => {
+    const { cookies } = this.props;
+    const token = cookies.get('token');
+
     axios.post(`${API_URL}/removemovie`, {movie}, {
       headers: {
         Authorization: token
@@ -86,6 +86,7 @@ export default class UserPage extends React.Component {
           {
             this.state.searchPageOn && <SearchPageContainer 
                                           collectionSync={this.collectionSync}
+                                          {...this.props}
                                        />
           }
         </div>

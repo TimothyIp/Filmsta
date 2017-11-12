@@ -4,29 +4,29 @@ import ReviewButton from './ReviewButton';
 const posterPath = 'https://image.tmdb.org/t/p/w300';
 const backdropPath = 'https://image.tmdb.org/t/p/w1280';
 
-export default class UserCollection extends React.Component {
+const UserCollection = (props) => {
 
-  render() {
     return (
       <div>
         <img onClick={()=> {
-          this.props.handleDisplay(this.props.movie.movieTitle)
-        }} src={`${posterPath}${this.props.movie.poster_path}`} alt={`Movie Poster of ${this.props.movie.movieTitle}`}/>
-        <h2>{this.props.movie.movieTitle}</h2>
+          props.handleDisplay(props.movie.movieTitle)
+        }} src={`${posterPath}${props.movie.poster_path}`} alt={`Movie Poster of ${props.movie.movieTitle}`}/>
+        <h2>{props.movie.movieTitle}</h2>
         {
-          (this.props.movie.movieTitle === this.props.activeDisplay)
+          (props.movie.movieTitle === props.activeDisplay)
             ? <div>
-                <button onClick={this.props.handleDisplayClose}>Close</button>
-                <img src={`${backdropPath}${this.props.movie.backdrop_path}`} alt={`Backdrop of Movie ${this.props.movie.movieTitle}`}/>
-                <h2>{this.props.movie.movieTitle}</h2>
-                <p>Release Date: {this.props.movie.release_date}</p>
-                <p>{this.props.movie.overview}</p>
+                <button onClick={props.handleDisplayClose}>Close</button>
+                <img src={`${backdropPath}${props.movie.backdrop_path}`} alt={`Backdrop of Movie ${props.movie.movieTitle}`}/>
+                <h2>{props.movie.movieTitle}</h2>
+                <p>Release Date: {props.movie.release_date}</p>
+                <p>{props.movie.overview}</p>
                 <ReviewButton />
-                <button onClick={() => {this.props.removeFromUserCollection(this.props.movie.movieTitle)}}>Remove from Collection</button>
+                <button onClick={() => {props.removeFromUserCollection(props.movie.movieTitle)}}>Remove from Collection</button>
               </div>
             : null
         }
       </div>
     )
-  }
 }
+
+export default UserCollection;

@@ -19,7 +19,7 @@ export default class Navigation extends React.Component {
         !id ? <Link to="/login"><button>Login</button></Link> 
             :
               <Link to="/">
-                <button onClick={userLogOut}>Logout</button>
+                <button onClick={() => {userLogOut()}}>Logout</button>
               </Link>
       }
       <button onClick={test}>Test</button>

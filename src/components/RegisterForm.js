@@ -1,10 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import Cookies from 'universal-cookie';
 import FormAlert from './FormAlert';
 
 const API_URL = 'http://localhost:3000/api';
-const cookies = new Cookies();
 
 
 
@@ -28,6 +26,7 @@ export default class RegisterForm extends React.Component {
   }
 
   handleSubmit = (e) => {
+    const { cookies } = this.props;
     e.preventDefault();
     const { firstName, lastName, username, email, password } = this.state;
     
@@ -59,14 +58,14 @@ export default class RegisterForm extends React.Component {
       <form onSubmit={this.handleSubmit}>
           <input onChange={this.handleChange} name="username" label="Username" placeholder="Username" />
           <input onChange={this.handleChange} name="email" label="Email Address" placeholder="Email Address" />
-            {
-              (this.state.registrationError.length)
-                ? <FormAlert 
-                    header="Something went wrong"
-                    content={`${this.state.registrationError[0].response.data.error}`}
-                  />
-                : null
-            }
+          {
+            (this.state.registrationError.length)
+              ? <FormAlert 
+                  header="Something went wrong"
+                  content={`${this.state.registrationError[this.state.registrationError.length - 1].response.data.error}`}
+                />
+              : null
+          }
           <input onChange={this.handleChange} name="firstName" label="First Name" placeholder="First Name" />
           <input onChange={this.handleChange} name="lastName" label="Last Name" placeholder="Last Name" />
           <input onChange={this.handleChange} name="password" type="password" label="Password" placeholder="Password" />
@@ -75,3 +74,4 @@ export default class RegisterForm extends React.Component {
     )
   }
 }
+

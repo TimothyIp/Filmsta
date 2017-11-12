@@ -147,3 +147,8 @@ exports.removeFromUserCollection = function(req, res, next) {
     }
   });
 }
+
+exports.addToUsersReviews = function(req, res, next) {
+  console.log("req user",req.user);
+  console.log("req body", req.body);
+}

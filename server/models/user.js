@@ -36,7 +36,11 @@ const UserSchema = new Schema({
     backdrop_path: String,
     overview: String,
     poster_path: String,
-    release_date: String
+    release_date: String,
+    review: {
+      content: String,
+      date: Date
+    }
   }],
   role: {
     type: String,
