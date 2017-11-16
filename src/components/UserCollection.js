@@ -20,10 +20,20 @@ const UserCollection = (props) => {
                 <h2>{props.movie.movieTitle}</h2>
                 <p>Release Date: {props.movie.release_date}</p>
                 <p>{props.movie.overview}</p>
-                <ReviewButton />
+                <ReviewButton
+                  {...props}
+                />
                 <button onClick={() => {props.removeFromUserCollection(props.movie.movieTitle)}}>Remove from Collection</button>
               </div>
             : null
+        }
+        {
+         (props.movie.review)
+          ? <div>
+              <p>{props.movie.review.content}</p>
+              <p>User's Rating: {props.movie.review.rating}</p>
+            </div>
+          : null
         }
       </div>
     )

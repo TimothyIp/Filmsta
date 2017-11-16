@@ -39,6 +39,7 @@ const UserSchema = new Schema({
     release_date: String,
     review: {
       content: String,
+      rating: Number,
       date: Date
     }
   }],

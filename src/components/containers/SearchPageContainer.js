@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchPage from '../SearchPage';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 const API_URL = 'http://localhost:3000/api';
 
@@ -63,7 +64,6 @@ export default class SearchPageContainer extends React.Component {
       })
     })
     .catch(error => {
-      console.log("error",error)
       const errorMsg = Array.from(this.state.errorLog);
       errorMsg.push(error);
       this.setState({
@@ -101,4 +101,11 @@ export default class SearchPageContainer extends React.Component {
       />
     )
   }
+}
+
+SearchPageContainer.propTypes = {
+  searchedShows: PropTypes.string,
+  movieResults: PropTypes.array,
+  activeMovieInfo: PropTypes.string,
+  errorLog: PropTypes.array
 }

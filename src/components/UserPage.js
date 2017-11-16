@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import AddMovieButton from './AddMovieButton';
 import SearchPageContainer from './containers/SearchPageContainer';
@@ -115,6 +116,7 @@ export default class UserPage extends React.Component {
                       handleDisplayClose={this.handleDisplayClose}
                       removeFromUserCollection={this.removeFromUserCollection}
                       {...this.state}
+                      {...this.props}
                       />
                     </li>
                   )
@@ -125,4 +127,12 @@ export default class UserPage extends React.Component {
       </div>
     )
   }
+}
+
+UserPage.propTypes = {
+  viewedUser: PropTypes.string,
+  errorLog: PropTypes.array,
+  searchPageOn: PropTypes.bool,
+  usersCollection: PropTypes.array,
+  activeDisplay: PropTypes.string
 }

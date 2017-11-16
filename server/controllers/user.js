@@ -84,7 +84,7 @@ exports.addToUserCollection = function(req, res , next) {
   // console.log(req.user._id)
   User.findById(userId, (err, foundUser) => {
     if (err) {
-      res.status(422).json({
+      res.status(400).json({
         error: 'No user found.'
       })
       return next(err);
@@ -120,7 +120,7 @@ exports.removeFromUserCollection = function(req, res, next) {
   
   User.findById(userId, (err, foundUser) => {
     if (err) {
-      res.status(422).json({
+      res.status(400).json({
         error: 'No user found.'
       })
       return next(err);
@@ -130,7 +130,7 @@ exports.removeFromUserCollection = function(req, res, next) {
       const movieList = foundUser.movies;
       
       for (let i = movieList.length - 1; i >= 0; i--) {
-        if (movieList[i].movieTitle===removedMovie) {
+        if (movieList[i].movieTitle === removedMovie) {
           movieList.splice(i,1);
         }
       }
@@ -148,7 +148,39 @@ exports.removeFromUserCollection = function(req, res, next) {
   });
 }
 
-exports.addToUsersReviews = function(req, res, next) {
-  console.log("req user",req.user);
-  console.log("req body", req.body);
+exports.addToUserReviews = function(req, res, next) {
+  const userId = req.user._id;
+  const movie = req.body.reviewData.movieName;
+  const usersReview = req.body.reviewData.content;
+  const rating = req.body.reviewData.rating;
+
+  User.findById(userId, (err, foundUser) => {
+    if (err) {
+      res.status(400).json({
+        error: 'No user found.'
+      })
+      return next(err);
+    }
+
+    if (foundUser) {
+      for (let i = 0; i < foundUser.movies.length; i++) {
+        if (foundUser.movies[i].movieTitle === movie) {
+          foundUser.movies[i].review = {
+            content: usersReview,
+            rating
+          }
+        }
+      }
+
+      foundUser.save((err) => {
+        if (err) {
+          return next(err);
+        }
+
+        return res.status(200).json({
+          message: "Added Review"
+        })
+      })
+    }
+  })
 }
