@@ -18,7 +18,9 @@ export default class UserPage extends React.Component {
       errorLog: [],
       searchPageOn: false,
       usersCollection: [],
-      activeDisplay: ""
+      activeDisplay: "",
+      usersReviewBackdrop: "",
+      numberOfReviews: 0
     }
   }
 
@@ -39,6 +41,8 @@ export default class UserPage extends React.Component {
       this.setState({
         viewedUser: res.data.user,
         usersCollection: res.data.user.movies
+      }, () => {
+        this.profileBackdrop();
       })
     })
     .catch(error => {
@@ -48,6 +52,26 @@ export default class UserPage extends React.Component {
         errorLog: errorMsg
       })
     })
+  }
+
+  profileBackdrop = () => {
+    const usersMovies = Array.from(this.state.usersCollection);
+    const moviesWithReviews = [];
+
+    for (let i = 0; i < usersMovies.length; i++) {
+      if (usersMovies[i].review) {
+        moviesWithReviews.push(usersMovies[i])
+      }
+    }
+
+    if (moviesWithReviews.length > 1) {
+      const randomBackdrop = moviesWithReviews[Math.floor(Math.random() * moviesWithReviews.length)].backdrop_path;
+      
+      this.setState({
+        usersReviewBackdrop: randomBackdrop,
+        numberOfReviews: moviesWithReviews.length
+      });
+    }
   }
 
   handleDisplay = (movie) => {
@@ -137,5 +161,7 @@ UserPage.propTypes = {
   errorLog: PropTypes.array,
   searchPageOn: PropTypes.bool,
   usersCollection: PropTypes.array,
-  activeDisplay: PropTypes.string
+  activeDisplay: PropTypes.string,
+  usersReviewBackdrop: PropTypes.string,
+  numberOfReviews: PropTypes.number
 }

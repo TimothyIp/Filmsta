@@ -27,6 +27,9 @@ const UserSchema = new Schema({
       type: String
     }
   },
+  profile_bio: {
+    type: String
+  },
   movies: [{
     addedBy: {
       type: Schema.Types.ObjectId,
