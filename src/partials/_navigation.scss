@@ -1,3 +1,13 @@
-.navigation {
-  // background-color: $primary-color;
+.navigation__container {
+  position: fixed;
+  top: 0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  max-width: 1170px;
+  width: 100%;
+}
+
+.navigation__container div {
+  display: flex;
+  justify-content: space-between;
 }

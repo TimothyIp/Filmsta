@@ -110,6 +110,7 @@ export default class UserPage extends React.Component {
         <UsersInfo 
           {...this.state}
           {...this.props}
+          collectionSync={this.collectionSync}
         />
         {
           (this.state.searchPageOn)

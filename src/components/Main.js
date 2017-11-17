@@ -100,12 +100,14 @@ class Main extends React.Component {
     return (
         <BrowserRouter>
           <div>
-            <Navigation
-              {...this.state} 
-              userLogin={this.userLogin}
-              userLogOut={this.userLogOut}
-              test={this.test}
-            />
+            <div className="wrapper">
+              <Navigation
+                {...this.state} 
+                userLogin={this.userLogin}
+                userLogOut={this.userLogOut}
+                test={this.test}
+              />
+            </div>
             <Route path="/register" 
                    render={(props) => 
                     <RegisterPage 

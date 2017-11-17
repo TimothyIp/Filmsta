@@ -37,7 +37,10 @@ export default class EditBioBtn extends Component {
       headers: { Authorization: token }
     })
     .then(res => {
-      console.log(res)
+      this.props.collectionSync();
+      this.setState({
+        bioInputShow: false
+      })
     })
     .catch(err => {
       console.log(err)
