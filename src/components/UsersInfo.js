@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import EditBioBtn from './EditBioBtn';
 
 const backdropPath = 'https://image.tmdb.org/t/p/w1280'
 const avatar_url = 'https://avatars.io/facebook/'
@@ -15,6 +16,10 @@ export default class UsersInfo extends Component {
         <img src={`${backdropPath}${usersReviewBackdrop}`} alt=""/>
         <img src={`${avatar_url}${viewedUser.username}/128`} alt=""/>
         <h1>{viewedUser.username}</h1>
+        <p>{viewedUser.profile_bio}</p>
+        <EditBioBtn 
+          {...this.props}
+        />
         <p>Number of Movies Watched: {usersCollection.length}</p>
         <p>Number of Movies Reviewed: {numberOfReviews}</p>
       </div>

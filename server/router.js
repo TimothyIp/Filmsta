@@ -44,6 +44,9 @@ module.exports = function(app) {
   // Remove from user's database
   userRoutes.post('/removemovie', requireAuth, UserController.removeFromUserCollection);
 
+  // Edit Profile Bio
+  userRoutes.post('/editbio', requireAuth, UserController.EditProfileBio)
+
   // Search Routes
   apiRoutes.use('/search', searchRoutes);
 

@@ -28,7 +28,8 @@ const UserSchema = new Schema({
     }
   },
   profile_bio: {
-    type: String
+    type: String,
+    default: "No profile written yet"
   },
   movies: [{
     addedBy: {

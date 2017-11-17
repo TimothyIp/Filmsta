@@ -20,7 +20,8 @@ const setViewedUserInfo = function (request) {
     username: request.username,
     role: request.role,
     firstName: request.profile.firstName,
-    movies: request.movies
+    movies: request.movies,
+    profile_bio: request.profile_bio
   };
 
 
@@ -182,5 +183,33 @@ exports.addToUserReviews = function(req, res, next) {
         })
       })
     }
+  })
+}
+
+exports.EditProfileBio = function(req, res, next) {
+  const newBioInput = req.body.newBio;
+  const userId = req.user._id;
+
+  User.findById(userId, (err, foundUser) => {
+    if (err) {
+      res.status(400).json({
+        error: "No user found."
+      });
+    }
+
+    if (foundUser) {
+      foundUser.profile_bio = newBioInput
+    }
+
+    foundUser.save((err) => {
+      if (err) {
+        return next(err);
+      }
+
+      return res.status(200).json({
+        message: "Updated Profile Bio",
+        newBio: foundUser.profile_bio
+      })
+    })
   })
 }

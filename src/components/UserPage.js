@@ -109,6 +109,7 @@ export default class UserPage extends React.Component {
       <div>
         <UsersInfo 
           {...this.state}
+          {...this.props}
         />
         {
           (this.state.searchPageOn)
