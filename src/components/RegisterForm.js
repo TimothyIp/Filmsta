@@ -1,10 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import FormAlert from './FormAlert';
+import PropTypes from 'prop-types';
 
 const API_URL = 'http://localhost:3000/api';
-
-
 
 export default class RegisterForm extends React.Component {
   constructor() {
@@ -75,3 +74,10 @@ export default class RegisterForm extends React.Component {
   }
 }
 
+RegisterForm.propTypes = {
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  email: PropTypes.string,
+  password: PropTypes.string,
+  registrationError: PropTypes.array
+}

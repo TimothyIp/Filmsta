@@ -52,7 +52,8 @@ export default class ReviewButton extends Component {
       headers: { Authorization: token }
     })
     .then(res => {
-      console.log(res)
+      console.log(res);
+      this.props.collectionSync();
     })
     .catch(err => {
       console.log(err)

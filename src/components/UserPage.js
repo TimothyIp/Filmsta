@@ -4,6 +4,7 @@ import axios from 'axios';
 import AddMovieButton from './AddMovieButton';
 import SearchPageContainer from './containers/SearchPageContainer';
 import UserCollection from './UserCollection';
+import UsersInfo from './UsersInfo';
 
 const API_URL = 'http://localhost:3000/api/user';
 
@@ -82,16 +83,17 @@ export default class UserPage extends React.Component {
   render () {
     return (
       <div>
-        <h3>Profile of {this.state.viewedUser.firstName}</h3>
-        <div>
-          {
-            this.state.searchPageOn && <SearchPageContainer 
-                                          collectionSync={this.collectionSync}
-                                          {...this.props}
-                                       />
-          }
-        </div>
-        <p>Their info will be here</p>
+        <UsersInfo 
+          {...this.state}
+        />
+        {
+          (this.state.searchPageOn)
+           ? <SearchPageContainer 
+              collectionSync={this.collectionSync}
+              {...this.props}
+              />
+            : null
+        }
         {
           (this.props.username === this.props.params.username)
             ? <AddMovieButton 
@@ -115,6 +117,7 @@ export default class UserPage extends React.Component {
                       handleDisplay={this.handleDisplay}
                       handleDisplayClose={this.handleDisplayClose}
                       removeFromUserCollection={this.removeFromUserCollection}
+                      collectionSync={this.collectionSync}
                       {...this.state}
                       {...this.props}
                       />

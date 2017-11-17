@@ -106,11 +106,17 @@ class Main extends React.Component {
               userLogOut={this.userLogOut}
               test={this.test}
             />
-            <Route path="/register" component={RegisterPage}/>
+            <Route path="/register" 
+                   render={(props) => 
+                    <RegisterPage 
+                      {...this.props}
+                    />}
+            />
             <Route path="/login" 
                    render={(props) => 
                    <LoginPage 
                       {...this.state}
+                      {...this.props}
                       userLogin={this.userLogin} 
                    />}
             />

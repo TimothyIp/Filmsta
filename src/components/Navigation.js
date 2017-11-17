@@ -7,9 +7,10 @@ export default class Navigation extends React.Component {
    const { userLogOut, test, id, username } = {...this.props};
 
    return (
-    <div>
-     
-      Navigation Bar
+    <div className="navigation">
+      <div>
+        Filmsta
+      </div>
       {
         !id ? <Link to="/">Home</Link>
             : <Link to={`/user/${username}`}>Home</Link>
@@ -22,7 +23,6 @@ export default class Navigation extends React.Component {
                 <button onClick={() => {userLogOut()}}>Logout</button>
               </Link>
       }
-      <button onClick={test}>Test</button>
     </div>
    );
  }
