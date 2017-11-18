@@ -1,13 +1,26 @@
 .user__backdrop {
   width: 100%;
   z-index: -1;
-  font-size: 0;
   max-width: none;
+}
+
+.user__backdrop--container {
+  font-size: 0;
+  position: relative;
+}
+
+.user__backdrop--overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.20);
 }
 
 .profile__avatar {
   position: relative;
-  top: -160px;
+  top: -125px;
   border-radius: 36px;
   max-width: 320px;
   font-size: 0;
@@ -17,7 +30,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding-left: 1.5rem;
+  padding-left: 1.75rem;
   padding-top: 1rem;
 }
 
@@ -34,4 +47,5 @@
   max-width: 1170px;
   margin: 0 auto;
   display: flex;
+  padding-bottom: 2.5rem;
 }

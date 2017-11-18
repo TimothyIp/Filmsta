@@ -53,7 +53,7 @@ export default class EditBioBtn extends Component {
         {
           (this.state.bioInputShow)
             ? <form onSubmit={this.handleSubmit}>
-                <textarea onChange={this.handleChange} name="bioInput" type="text" placeholder="Write something new about yourself"/>
+                <textarea maxlength="50" onChange={this.handleChange} name="bioInput" type="text" placeholder="Write something new about yourself"/>
                 <button>Submit</button>
               </form>
             : null

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import EditBioBtn from './EditBioBtn';
 
 const backdropPath = 'https://image.tmdb.org/t/p/w1280'
-const avatar_url = 'https://avatars.io/facebook/'
+const avatar_url = 'https://api.adorable.io/avatars/250/'
 
 export default class UsersInfo extends Component {
   constructor() {
@@ -15,9 +15,12 @@ export default class UsersInfo extends Component {
     const { viewedUser, usersCollection, usersReviewBackdrop, numberOfReviews } = this.props;
     return (
       <div className="user__info">
-        <img className="user__backdrop" src={`${backdropPath}${usersReviewBackdrop}`} alt=""/>
+        <div className="user__backdrop--container">
+          <div className="user__backdrop--overlay"></div>
+            <img className="user__backdrop" src={`${backdropPath}${usersReviewBackdrop}`} alt=""/>
+        </div>
         <div className="user__info--section">
-          <img className="profile__avatar" src={`${avatar_url}${viewedUser.username}/128`} alt=""/>
+          <img className="profile__avatar" src={`${avatar_url}${viewedUser.username}.png`} alt=""/>
           <div className="profile__info--container">
             <div className="profile__names">
               <h1>{viewedUser.username}</h1>

@@ -1,24 +1,69 @@
 .navigation__container {
   position: fixed;
   top: 0;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  max-width: 1170px;
-  width: 100%; }
+  left: 0;
+  width: 100%;
+  z-index: 500;
+  background-color: #242424;
+  height: 4rem; }
+
+.navigation__container .wrapper {
+  height: 100%; }
 
 .navigation__container div {
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  align-items: center; }
+
+.navigation__container a {
+  text-decoration: none;
+  color: #4ACA7C; }
+
+.logo {
+  font-size: 2rem;
+  letter-spacing: 1.5px;
+  color: #4ACA7C;
+  font-family: 'Wire One', sans-serif; }
+
+.navigation__links a {
+  margin-left: 1.5rem;
+  transition: all 0.2s ease-in; }
+  .navigation__links a:hover {
+    color: #fff; }
+
+.navigation__links button {
+  color: #fff;
+  background-color: #4ACA7C;
+  border: none;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 2px;
+  height: 2.25rem;
+  border: 1px solid #4ACA7C;
+  transition: all 0.2s ease-out; }
+  .navigation__links button:hover {
+    background-color: #242424; }
 
 .user__backdrop {
   width: 100%;
   z-index: -1;
-  font-size: 0;
   max-width: none; }
+
+.user__backdrop--container {
+  font-size: 0;
+  position: relative; }
+
+.user__backdrop--overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2); }
 
 .profile__avatar {
   position: relative;
-  top: -160px;
+  top: -125px;
   border-radius: 36px;
   max-width: 320px;
   font-size: 0; }
@@ -27,7 +72,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding-left: 1.5rem;
+  padding-left: 1.75rem;
   padding-top: 1rem; }
 
 .profile__names h1, p {
@@ -40,7 +85,8 @@
 .user__info--section {
   max-width: 1170px;
   margin: 0 auto;
-  display: flex; }
+  display: flex;
+  padding-bottom: 2.5rem; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary {
   display: block; }
