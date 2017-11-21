@@ -55,8 +55,8 @@ export default class RegisterForm extends React.Component {
   render () {
     return (
       <form onSubmit={this.handleSubmit}>
-          <input onChange={this.handleChange} name="username" label="Username" placeholder="Username" />
-          <input onChange={this.handleChange} name="email" label="Email Address" placeholder="Email Address" />
+          <input onChange={this.handleChange} name="username" label="Username" placeholder="Username" required />
+          <input onChange={this.handleChange} name="email" label="Email Address" placeholder="Email Address" required />
           {
             (this.state.registrationError.length)
               ? <FormAlert 
@@ -65,10 +65,10 @@ export default class RegisterForm extends React.Component {
                 />
               : null
           }
-          <input onChange={this.handleChange} name="firstName" label="First Name" placeholder="First Name" />
-          <input onChange={this.handleChange} name="lastName" label="Last Name" placeholder="Last Name" />
-          <input onChange={this.handleChange} name="password" type="password" label="Password" placeholder="Password" />
-          <button>Submit</button>
+            <input onChange={this.handleChange} className="form__name" name="firstName" label="First Name" placeholder="First Name" required />
+            <input onChange={this.handleChange} className="form__name" name="lastName" label="Last Name" placeholder="Last Name" required />
+          <input onChange={this.handleChange} name="password" type="password" label="Password" placeholder="Password" required />
+          <button>Get Started</button>
       </form>
     )
   }

@@ -40,7 +40,7 @@ export default class LoginForm extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <input onChange={this.handleChange} value={email} name="email" label="Email Address" placeholder="Email Address" />
           <input onChange={this.handleChange} value={password} name="password" type="password" label="Password" placeholder="Password" />
-          <button>Submit</button>
+          <button>Log In</button>
           {loginErrors.length ? <FormAlert
           header="Wrong login information"
           content="Must enter a correct email address or password."
