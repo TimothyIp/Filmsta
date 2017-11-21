@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export default class Navigation extends React.Component {
  
  render() {
-   const { userLogOut, test, id, username } = {...this.props};
+   const { userLogOut, id, username } = {...this.props};
 
    return (
       <div className="navigation__container">

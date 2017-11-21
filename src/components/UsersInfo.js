@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import EditBioBtn from './EditBioBtn';
 
 const backdropPath = 'https://image.tmdb.org/t/p/w1280'
 const avatar_url = 'https://api.adorable.io/avatars/250/'
 
 export default class UsersInfo extends Component {
-  constructor() {
-    super();
-  
-  }
-
   render() {
     const { viewedUser, usersCollection, usersReviewBackdrop, numberOfReviews } = this.props;
     return (

@@ -2,7 +2,8 @@ import React from 'react';
 import Navigation from './Navigation';
 import RegisterPage from './RegisterPage';
 import LoginPage from './LoginPage';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import IntroPage from './IntroPage';
+import { BrowserRouter, Route } from 'react-router-dom';
 import axios from 'axios';
 import UserPage from './UserPage';
 import { withCookies } from 'react-cookie';
@@ -108,6 +109,7 @@ class Main extends React.Component {
                 test={this.test}
               />
             </div>
+            <Route exact path="/" component={IntroPage}/>
             <Route path="/register" 
                    render={(props) => 
                     <RegisterPage 

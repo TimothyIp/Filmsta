@@ -30,7 +30,7 @@ export default class ReviewButton extends Component {
     const rating = event.target.innerHTML;
 
     this.setState({
-      reviewRating: parseInt(rating)
+      reviewRating: Number(rating)
     });
   }
 

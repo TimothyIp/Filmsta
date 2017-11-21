@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   z-index: 500;
-  background-color: #242424;
+  background-color: none;
   height: 4rem; }
 
 .navigation__container .wrapper {
@@ -87,6 +87,59 @@
   margin: 0 auto;
   display: flex;
   padding-bottom: 2.5rem; }
+
+.introduction {
+  background-color: #242424;
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  position: relative; }
+
+.hero__header {
+  position: absolute;
+  top: 50%;
+  left: 33%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  font-size: 4rem;
+  font-weight: 300; }
+
+.hero__header span {
+  color: #4ACA7C; }
+
+.hero__banner {
+  position: relative;
+  background: #242424;
+  font-size: 0;
+  text-align: center; }
+
+.hero__banner img {
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  z-index: -1;
+  mix-blend-mode: soft-light;
+  object-fit: cover; }
+
+.hero__text {
+  font-size: 2rem;
+  text-align: center;
+  padding-bottom: 0; }
+
+.hero__btn {
+  background-color: transparent;
+  color: #fff;
+  outline: none;
+  border: none;
+  font-size: 24px;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border: 1px solid #4ACA7C;
+  transition: all 0.2s ease-in-out; }
+  .hero__btn:hover {
+    background-color: #4ACA7C; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary {
   display: block; }
