@@ -1,7 +1,14 @@
+.user__info {
+  padding-top: 4rem;
+}
+
 .user__backdrop {
   width: 100%;
+  height: 75vh;
   z-index: -1;
   max-width: none;
+  mix-blend-mode: soft-light;
+  object-fit: cover;
 }
 
 .user__backdrop--container {
@@ -15,7 +22,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.20);
+  background-color: rgba(0, 0, 0, 0.2);
+  // background-color: $primary-black;
+  box-shadow: 0 0 200px rgba(0,0,0,0.9) inset;
 }
 
 .profile__avatar {
@@ -37,6 +46,15 @@
 .profile__names h1, p {
   margin: 0;
   padding-bottom: 1rem;
+  font-weight: 300;
+}
+
+.profile__names p {
+  color: gray;
+}
+
+.profile__stats {
+  margin-top: 1rem;
 }
 
 .profile__stats p {
@@ -47,5 +65,69 @@
   max-width: 1170px;
   margin: 0 auto;
   display: flex;
-  padding-bottom: 2.5rem;
+}
+
+.profile__message--container {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__message--container textarea {
+  width: 100%;
+  resize: none;
+  padding: 0.5rem;
+}
+
+.profile__message--container button {
+  width: 50%;
+  border-radius: 0;
+  border: 1px solid #000;
+}
+
+#profile__message-btn {
+ width: 100%;
+ padding-left: 1rem;
+ padding-right: 1rem;
+ transition: all 0.2s ease-in;
+ &:hover {
+   background-color: #000;
+   color: #fff
+ }
+}
+
+.userPage__container {
+  background-color: #f8f8f8;
+}
+
+.userPage__container ul {
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  justify-content: space-between;
+  align-content: center;
+  margin-top: 2rem;
+}
+
+.addMovie__btn {
+  text-align: right;
+  padding-top: 2rem;
+}
+
+.addMovie__btn button {
+  background-color: transparent;
+  border: 1px solid #000;
+  border-radius: 0;
+  transition: all 0.2s ease-in;
+  &:hover {
+    background-color: #000;
+    color: #fff
+  }
+}
+
+.movie__section--title {
+  font-size: 2rem;
+  padding: 1rem;
+  text-align: center;
 }

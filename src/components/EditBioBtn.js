@@ -49,16 +49,21 @@ export default class EditBioBtn extends Component {
 
   render() {
     return (
-      <div>
+      <div className="profile__message--container">
         {
           (this.state.bioInputShow)
             ? <form onSubmit={this.handleSubmit}>
-                <textarea maxlength="50" onChange={this.handleChange} name="bioInput" type="text" placeholder="Write something new about yourself"/>
-                <button>Submit</button>
+                <textarea maxlength="50" onChange={this.handleChange} name="bioInput" type="text" placeholder="Write something new about yourself (50 Characters Maximum)."/>
+                <button onClick={this.handleClick}>Close</button>
+                <button>Update</button>
               </form>
             : null
         }
-        <button onClick={this.handleClick}>Edit Bio</button>
+        {
+          (this.state.bioInputShow)
+            ? null
+            : <button id="profile__message-btn" onClick={this.handleClick}>Edit profile message</button>
+        }
       </div>
     )
   }

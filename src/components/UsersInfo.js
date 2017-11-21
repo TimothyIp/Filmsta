@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import EditBioBtn from './EditBioBtn';
 
 const backdropPath = 'https://image.tmdb.org/t/p/w1280'
@@ -19,12 +19,12 @@ const UsersInfo = (props) => {
               <h1>{viewedUser.username}</h1>
               <p>{viewedUser.profile_bio}</p>
               <EditBioBtn 
-                {...this.props}
+                {...props}
               />
             </div>
             <div className="profile__stats">
-              <p>Number of Movies Watched: {usersCollection.length}</p>
-              <p>Number of Movies Reviewed: {numberOfReviews}</p>
+              <p>Movies Watched: {usersCollection.length}</p>
+              <p>Movies Reviewed: {numberOfReviews}</p>
             </div>
           </div>
           </div>

@@ -124,47 +124,56 @@ export default class UserPage extends React.Component {
              />
            : null
         }
-        {
-          (this.state.searchPageOn)
-           ? <SearchPageContainer 
-              collectionSync={this.collectionSync}
-              {...this.props}
-              />
-            : null
-        }
-        {
-          (this.props.username === this.props.params.username)
-            ? <AddMovieButton 
-                searchPageView={this.searchPageView}
-              />
-            : null
-        }
-        {
-          (this.state.errorLog.length) 
-            ? this.state.errorLog[0].response.data.error
-            : null 
-        }
-        {
-          (this.state.usersCollection)
-            ? <ul>
-                {this.state.usersCollection.map((movie, index) => {
-                  return (
-                    <li key={`usersMovieId-${index}`}>
-                      <UserCollection
-                      movie={movie}
-                      handleDisplay={this.handleDisplay}
-                      handleDisplayClose={this.handleDisplayClose}
-                      removeFromUserCollection={this.removeFromUserCollection}
-                      collectionSync={this.collectionSync}
-                      {...this.state}
-                      {...this.props}
-                      />
-                    </li>
-                  )
-                })}
-              </ul>
-            : null
-        }
+        <div className="userPage__container">
+          {
+            (this.state.searchPageOn)
+             ? <SearchPageContainer 
+                collectionSync={this.collectionSync}
+                {...this.props}
+                />
+              : null
+          }
+          <div className="wrapper">
+            {
+              (this.props.username === this.props.params.username)
+               ? <p className="movie__section--title">Your Movies</p>
+               : <p className="movie__section--title">{this.props.params.username}'s Movies</p>
+            }
+            {
+              (this.props.username === this.props.params.username)
+                ? <AddMovieButton 
+                    searchPageView={this.searchPageView}
+                  />
+                : null
+            }
+            {
+              (this.state.errorLog.length) 
+                ? this.state.errorLog[0].response.data.error
+                : null 
+            }
+            {
+              (this.state.usersCollection)
+                ? <ul>
+                    {this.state.usersCollection.map((movie, index) => {
+                      return (
+                        <li key={`usersMovieId-${index}`}>
+                          <UserCollection
+                          movie={movie}
+                          handleDisplay={this.handleDisplay}
+                          handleDisplayClose={this.handleDisplayClose}
+                          removeFromUserCollection={this.removeFromUserCollection}
+                          collectionSync={this.collectionSync}
+                          {...this.state}
+                          {...this.props}
+                          />
+                        </li>
+                      )
+                    })}
+                  </ul>
+                : null
+            }
+          </div>
+        </div>
       </div>
     )
   }
