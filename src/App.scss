@@ -25,3 +25,29 @@ html, body {
   margin: 0 auto;
   position: relative;
 }
+
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $primary-color;
+  z-index: 1000;
+  transition: all 0.2s ease-out;
+}
+
+.loading p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-weight: 300;
+  font-size: 5rem;
+}
+
+.fadeOut {
+  opacity: 0;
+  z-index: -1;
+}

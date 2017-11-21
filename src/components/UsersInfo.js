@@ -4,9 +4,8 @@ import EditBioBtn from './EditBioBtn';
 const backdropPath = 'https://image.tmdb.org/t/p/w1280'
 const avatar_url = 'https://api.adorable.io/avatars/250/'
 
-export default class UsersInfo extends Component {
-  render() {
-    const { viewedUser, usersCollection, usersReviewBackdrop, numberOfReviews } = this.props;
+const UsersInfo = (props) => {
+    const { viewedUser, usersCollection, usersReviewBackdrop, numberOfReviews } = props;
     return (
       <div className="user__info">
         <div className="user__backdrop--container">
@@ -31,5 +30,6 @@ export default class UsersInfo extends Component {
           </div>
       </div>
     )
-  }
 }
+
+export default UsersInfo;

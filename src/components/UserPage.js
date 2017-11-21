@@ -5,6 +5,7 @@ import AddMovieButton from './AddMovieButton';
 import SearchPageContainer from './containers/SearchPageContainer';
 import UserCollection from './UserCollection';
 import UsersInfo from './UsersInfo';
+import Loading from './Loading';
 
 const API_URL = 'http://localhost:3000/api/user';
 
@@ -20,12 +21,16 @@ export default class UserPage extends React.Component {
       usersCollection: [],
       activeDisplay: "",
       usersReviewBackdrop: "",
-      numberOfReviews: 0
+      numberOfReviews: 0,
+      loadStatus: false,
+      loadShow: true
     }
   }
 
   componentDidMount() {
     this.collectionSync();
+    setTimeout(function() { this.setState({ loadStatus: true })}.bind(this), 500)
+    setTimeout(function() { this.setState({ loadShow: false })}.bind(this), 700)
   }
 
   searchPageView = (e) => {
@@ -113,6 +118,13 @@ export default class UserPage extends React.Component {
           collectionSync={this.collectionSync}
         />
         {
+          (this.state.loadShow)
+           ? <Loading 
+              loadStatus={this.state.loadStatus}
+             />
+           : null
+        }
+        {
           (this.state.searchPageOn)
            ? <SearchPageContainer 
               collectionSync={this.collectionSync}
@@ -165,5 +177,7 @@ UserPage.propTypes = {
   usersCollection: PropTypes.array,
   activeDisplay: PropTypes.string,
   usersReviewBackdrop: PropTypes.string,
-  numberOfReviews: PropTypes.number
+  numberOfReviews: PropTypes.number,
+  loadStatus: PropTypes.bool,
+  loadShow: PropTypes.bool
 }

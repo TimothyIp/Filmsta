@@ -64,20 +64,6 @@ class Main extends React.Component {
     window.location.href = "/"
   }
 
-  // test = () => {
-  //   axios.get(`${API_URL}/user/${tokenUser._id}`, {
-  //     headers: {
-  //       Authorization: token
-  //     }
-  //   })
-  //   .then(res => {
-  //     console.log(res)
-  //   })
-  //   .catch(err => {
-  //     console.log(err)
-  //   })
-  // }
-
   componentDidMount() {
     const { cookies } = this.props;
     const token = cookies.get('token')
@@ -102,27 +88,31 @@ class Main extends React.Component {
         <BrowserRouter>
           <div>
             <div className="wrapper">
-              <Navigation
-                {...this.state} 
-                userLogin={this.userLogin}
-                userLogOut={this.userLogOut}
-                test={this.test}
+              <Route path="/*"
+                render={({ match }) => 
+                <Navigation
+                  {...this.state}
+                  {...match} 
+                  userLogin={this.userLogin}
+                  userLogOut={this.userLogOut}
+                />
+              }
               />
             </div>
             <Route exact path="/" component={IntroPage}/>
             <Route path="/register" 
-                   render={(props) => 
+                  render={(props) => 
                     <RegisterPage 
                       {...this.props}
                     />}
             />
             <Route path="/login" 
-                   render={(props) => 
-                   <LoginPage 
+                  render={(props) => 
+                  <LoginPage 
                       {...this.state}
                       {...this.props}
                       userLogin={this.userLogin} 
-                   />}
+                  />}
             />
             <Route  exact strict path="/user/:username"
                     render={({ match }) => 

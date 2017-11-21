@@ -77,6 +77,9 @@ form button {
   background-color: none;
   height: 4rem; }
 
+.nav__show {
+  background-color: #242424; }
+
 .navigation__container .wrapper {
   height: 100%; }
 
@@ -352,3 +355,26 @@ html, body {
   max-width: 1170px;
   margin: 0 auto;
   position: relative; }
+
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #4ACA7C;
+  z-index: 1000;
+  transition: all 0.2s ease-out; }
+
+.loading p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-weight: 300;
+  font-size: 5rem; }
+
+.fadeOut {
+  opacity: 0;
+  z-index: -1; }
