@@ -284,6 +284,16 @@ form button {
   .hero__btn:hover {
     background-color: #4ACA7C; }
 
+.moviecard img {
+  border-radius: 16px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
+
+.moviecard__description--container h2 {
+  font-weight: 300; }
+
+.review {
+  color: gray; }
+
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary {
   display: block; }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReviewButton from './ReviewButton';
+import StarRatings from './StarRatings';
 
 const posterPath = 'https://image.tmdb.org/t/p/w300';
 const backdropPath = 'https://image.tmdb.org/t/p/w1280';
@@ -7,7 +8,7 @@ const backdropPath = 'https://image.tmdb.org/t/p/w1280';
 const UserCollection = (props) => {
 
     return (
-      <div>
+      <div className="moviecard__description--container">
         <img onClick={()=> {
           props.handleDisplay(props.movie.movieTitle)
         }} src={`${posterPath}${props.movie.poster_path}`} alt={`Movie Poster of ${props.movie.movieTitle}`}/>
@@ -29,9 +30,10 @@ const UserCollection = (props) => {
         }
         {
          (props.movie.review)
-          ? <div>
+          ? <div className="review">
               <p>{props.movie.review.content}</p>
               <p>User's Rating: {props.movie.review.rating}</p>
+              <StarRatings rating={props.movie.review.rating}/>
             </div>
           : null
         }

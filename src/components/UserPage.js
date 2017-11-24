@@ -156,7 +156,7 @@ export default class UserPage extends React.Component {
                 ? <ul>
                     {this.state.usersCollection.map((movie, index) => {
                       return (
-                        <li key={`usersMovieId-${index}`}>
+                        <li key={`usersMovieId-${index}`} className="moviecard">
                           <UserCollection
                           movie={movie}
                           handleDisplay={this.handleDisplay}
